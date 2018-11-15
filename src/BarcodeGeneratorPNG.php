@@ -18,6 +18,7 @@ class BarcodeGeneratorPNG extends BarcodeGenerator
      * @return string image data or false in case of error.
      * @public
      */
+    public $file = ""; //file path and file name
     public function getBarcode($code, $type, $widthFactor = 2, $totalHeight = 30, $color = array(0, 0, 0))
     {
         $barcodeData = $this->getBarcodeData($code, $type);
@@ -66,7 +67,7 @@ class BarcodeGeneratorPNG extends BarcodeGenerator
             $png->drawImage($imageMagickObject);
             echo $png;
         } else {
-            imagepng($png);
+            $this->file == "" ? imagepng($png):imagepng($png,$this->file);
             imagedestroy($png);
         }
         $image = ob_get_clean();
